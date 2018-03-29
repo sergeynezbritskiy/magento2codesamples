@@ -1,12 +1,11 @@
 # BorrowHome
 
-Custom implementation of second checkout, which is actually a request to try products for free
+Custom implementation of the second checkout that enables customers to request a home try-on option before they actually buy products. 
 
 # LandingPage
 
-Create landing page with custom url and custom content on top and category products on bottom.
-Landing page "Men black eyeglasses" with custom route and custom banner, but with content of category "eyeglasses/gender=men/color=black" + custom banner
+Сustom category landing page with predefined (by certain filters) products for promotional purpose.
 
 # ReviewDiscount
 
-Generate a discount code for review. Discount amount depends on review fullness. Discount rules and amount are configurable. 
+Custom functionality that generates a discount code for leaving a review. Discount amount depends on the review fullness. Discount rules and amount are configurable.
