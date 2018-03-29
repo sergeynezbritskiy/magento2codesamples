@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.wrapper">
+            <container name="catalog.category.landing.page.content" as="landing_page_content" htmlTag="div" htmlClass="landing-page-content" after="global.notices">
+                <block name="landing_page_content" class="\Magecom\LandingPage\Block\LandingPage" template="content.phtml"/>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

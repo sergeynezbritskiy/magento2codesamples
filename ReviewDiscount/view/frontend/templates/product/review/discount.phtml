@@ -1,0 +1,30 @@
+<?php
+/**
+ * @var \Magecom\ReviewDiscount\Block\Product\Review\Discount $block
+ */
+
+$maxDiscount = 15;
+
+?>
+<div class="fill-level">
+    <h3>fill the review to get max Discount</h3>
+    <div class="fill-level-bar" data-max-discount="<?= $maxDiscount; ?>">
+        <span class="discount-level"></span>
+    </div>
+    <ul class="fill-steps">
+        <?php for ($i = 0; $i < $maxDiscount; $i += 5) : ?>
+            <li class="fill-step" data-discount="<?= $i; ?>"><?= $i; ?>%</li>
+        <?php endfor; ?>
+        <li class="fill-step" data-discount="<?= $i; ?>"><?= $maxDiscount; ?>%</li>
+    </ul>
+</div>
+<script>
+    var jsonConfig = <?= $block->getDiscountCalculator()->toJson(); ?>;
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "review-discount": {}
+        }
+    }
+</script>

@@ -1,0 +1,26 @@
+<?php
+/** @var \Magecom\BorrowHome\Block\Cart\Item $block */
+
+$product = $block->getProduct();
+
+?>
+
+<li class="item product product-item">
+    <div class="product-item-info " data-container="product-grid">
+        <a href="<?= $block->getDeleteItemUrl(); ?>" class="borrow-remove" title="<?= __('Delete item'); ?>">x</a>
+        <a href="<?= $block->getProductUrl($product); ?>" class="product photo product-item-photo" tabindex="-1">
+            <?= $block->getImage($product, 'category_page_grid', ['class' => 'product-image-photo'])->toHtml(); ?>
+        </a>
+        <div class="product details product-item-details">
+            <?php /** @noinspection PhpUndefinedMethodInspection */
+            if ($manufacturer = $product->getAttributeText('manufacturer')): ?>
+                <strong class="product name product-item-manufacturer">
+                    <a class="product-item-link" href="<?= $block->getManufacturerUrl($product); ?>"><?= $manufacturer; ?></a>
+                </strong>
+            <?php endif; ?>
+            <strong class="product name product-item-name">
+                <a class="product-item-link" href="<?= $block->getProductUrl($product); ?>"><?= $product->getName(); ?></a>
+            </strong>
+        </div>
+    </div>
+</li>

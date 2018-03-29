@@ -1,0 +1,13 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="1column">
+    <head>
+        <title>Borrow Home</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magecom\BorrowHome\Block\Cart" name="borrow-home" template="Magecom_BorrowHome::cart.phtml" cacheable="false">
+                <block class="Magecom\BorrowHome\Block\Cart\ShippingForm" name="borrow-home.shipping-form" template="Magecom_BorrowHome::cart/shipping_form.phtml" cacheable="false"/>
+
+            </block>
+        </referenceContainer>
+    </body>
+</page>

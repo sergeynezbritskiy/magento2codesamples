@@ -1,0 +1,19 @@
+<?php
+
+/** @var \Magecom\BorrowHome\Block\Cart\EmptyItem $block */
+
+?>
+<li class="item product product-item borrow-more empty-item">
+    <div class="product-item-info " data-container="product-grid">
+        <a href="#" class="product photo product-item-photo" tabindex="-1">
+            <span class="product-image-container" style="width:270px;">
+                <span class="product-image-wrapper" style="padding-bottom: 40.740740740741%;">
+                    <img class="product-image-photo" src="<?= $block->getFreePlaceImageUrl(); ?>" width="270" height="110" alt="">
+                </span>
+            </span>
+        </a>
+        <div class="link-holder">
+            <a href="<?= $block->getBorrowMoreUrl(); ?>" class="borrow-more-link">+ <?= __('add another'); ?></a>
+        </div>
+    </div>
+</li>

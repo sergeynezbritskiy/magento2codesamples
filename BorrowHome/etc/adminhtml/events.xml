@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="order_preparation_massaction_packaging_norway">
+        <observer name="update_order_status_actions_list" instance="Magecom\BorrowHome\Observer\UpdateMassActionsList"/>
+    </event>
+    <event name="order_preparation_renderer_factory">
+        <observer name="override_renderer_for_borrow_home" instance="Magecom\BorrowHome\Observer\OverrideRendererForBorrowHome"/>
+    </event>
+</config>

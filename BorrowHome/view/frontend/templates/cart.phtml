@@ -1,0 +1,36 @@
+<?php
+
+/** @var \Magecom\BorrowHome\Block\Cart $block */
+
+$cartItems = $block->getCartItemsIds();
+$cartItemsCount = count($cartItems);
+$maxItemsCount = \Magecom\BorrowHome\Model\Session::MAX_BORROW_HOME_ITEMS_COUNT;
+
+?>
+<div class="borrow-container">
+    <h2 class="cart-title">
+        <span class="base"><?= __('Items to borrow home:'); ?> </span>
+        <span class="count"><span class="counter-number"><?= $cartItemsCount; ?></span>/<span class="max-items"><?= $maxItemsCount; ?></span></span>
+    </h2>
+    <div class="borrow-products">
+        <div class="borrow-heading"><?= __('Your items'); ?></div>
+        <div class="products wrapper grid products-grid">
+            <ol class="products list items product-items">
+                <?php for ($i = 0; $i < \Magecom\BorrowHome\Model\Session::MAX_BORROW_HOME_ITEMS_COUNT; $i++): ?>
+
+                    <?php $cartItem = array_shift($cartItems); ?>
+
+                    <?php if (is_null($cartItem)): ?>
+                        <?= $block->getEmptyCartItemHtml(); ?>
+                    <?php else: ?>
+                        <?= $block->getCartItemHtml($cartItem); ?>
+                    <?php endif; ?>
+
+                <?php endfor; ?>
+            </ol>
+        </div>
+    </div>
+
+    <?= $block->getChildHtml('borrow-home.shipping-form'); ?>
+
+</div>

@@ -1,0 +1,137 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Checkout\Block\Cart\Sidebar */
+
+$om = \Magento\Framework\App\ObjectManager::getInstance();
+
+/** @var \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig */
+$scopeConfig = $om->get(\Magento\Framework\App\Config\ScopeConfigInterface::class);
+/** @var \Magento\Store\Model\StoreManagerInterface $storeManager */
+$storeManager = $om->get(\Magento\Store\Model\StoreManagerInterface::class);
+/** @var \Magento\Store\Model\Store $store */
+$store = $storeManager->getStore();
+
+$currencySymbol = $store->getCurrentCurrency()->getCurrencySymbol();
+$isActive = intval($scopeConfig->getValue('carriers/freeshipping/active'));
+$freeShippingAmount = $isActive ? floatval($scopeConfig->getValue('carriers/freeshipping/free_shipping_subtotal')) : '';
+
+?>
+
+<div data-block="minicart" class="minicart-wrapper" data-free-shipping="<?= $freeShippingAmount ?>"
+     data-currency-symbol="<?= $currencySymbol; ?>">
+    <a class="action showcart" href="<?php /* @escapeNotVerified */
+    echo $block->getShoppingCartUrl(); ?>"
+       data-bind="scope: 'minicart_content'">
+        <i class="icon-cart"></i>
+        <span class="text"><?php /* @escapeNotVerified */
+            echo __('My Cart'); ?></span>
+        <span class="counter qty empty"
+              data-bind="css: { empty: !!getCartParam('summary_count') == false }, blockLoader: isLoading">
+            <span class="counter-number"><!-- ko text: getCartParam('summary_count') --><!-- /ko --></span>
+            <span class="counter-label">
+            <!-- ko if: getCartParam('summary_count') -->
+                <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
+                <!-- ko i18n: 'items' --><!-- /ko -->
+                <!-- /ko -->
+            </span>
+        </span>
+    </a>
+    <?php if ($block->getIsNeedToDisplaySideBar()): ?>
+        <div class="block block-minicart empty"
+             data-role="dropdownDialog"
+             data-mage-init='{"dropdownDialog":{
+                "appendTo":"[data-block=minicart]",
+                "triggerTarget":".showcart",
+                "timeout": "2000",
+                "closeOnMouseLeave": false,
+                "closeOnEscape": true,
+                "triggerClass":"active",
+                "parentClass":"active",
+                "buttons":[]}}'>
+            <div id="minicart-content-wrapper">
+                <div class="borrow-home-wrapper" id="borrow-home-wrapper">
+                    <div class="block-content" v-if="borrow_cart.items && borrow_cart.items.length">
+                        <div class="minicart-title">
+                            <span>Glasses you want to borrow home:</span>
+                        </div>
+                        <div class="minicart-items-wrapper">
+                            <ul class="minicart-items" >
+                                <li class="item product product-item odd last" v-for="item in borrow_cart.items">
+                                    <div class="product">
+                                        <a tabindex="-1" class="product-item-photo" :href="item.product_url" :title="item.product_name">
+                                    <span class="product-image-container">
+                                        <span class="product-image-wrapper">
+                                            <img class="product-image-photo" :src="item.product_image.src" :alt="item.product_image.alt">
+                                        </span>
+                                    </span>
+                                        </a>
+                                        <div class="product-item-details">
+                                            <div class="product actions">
+                                                <div class="secondary">
+                                                    <a href="#" class="action delete" @click.prevent="deleteItem(item.remove_product_url)" title="Remove item">
+                                                        <span>Remove</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="product-item-pricing">
+                                                <div class="price-container">
+                                            <span class="price-wrapper" v-html="item.product_price">
+                                            </span>
+                                                </div>
+                                            </div>
+                                            <strong class="product-item-name">
+                                                <a :href="item.product_has_url ? item.product_url : null" v-text="item.product_name"></a>
+                                            </strong>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="actions">
+                            <div class="primary">
+                                <!-- ToDo display checkout link-->
+                                <a type="button" href="/borrow-home/cart/" class="action primary checkout" title="Checkout">
+                                    <span>borrow home Check out</span>
+                                </a>
+                            </div>
+                        </div>
+<!--                        <div class="wrapper-confirm">-->
+<!--                            <div id="confirm">--><?//= __('Are you sure you would like to remove this item from the shopping cart?')?><!--</div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+                <div class="cart-content" data-bind="scope: 'minicart_content'">
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                </div>
+            </div>
+            <?php echo $block->getChildHtml('minicart.addons'); ?>
+        </div>
+    <?php endif ?>
+    <script>
+        window.checkout = <?php /* @escapeNotVerified */ echo \Zend_Json::encode($block->getConfig()); ?>;
+    </script>
+    <script type="text/x-magento-init">
+    {
+        "[data-block='minicart']": {
+            "Magento_Ui/js/core/app": <?php /* @escapeNotVerified */
+        echo $block->getJsLayout(); ?>
+        },
+        "*": {
+            "Magento_Ui/js/block-loader": "<?php /* @escapeNotVerified */
+        echo $block->getViewFileUrl('images/loader-1.gif'); ?>"
+        },
+        "#borrow-home-wrapper": {
+            "minicartborrow" : "test"
+        }
+    }
+
+    </script>
+</div>
+
+

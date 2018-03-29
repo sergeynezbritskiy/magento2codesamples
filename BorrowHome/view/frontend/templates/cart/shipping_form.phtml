@@ -1,0 +1,158 @@
+<?php
+
+/** @var \Magecom\BorrowHome\Block\Cart\ShippingForm $block */
+
+?>
+<form action="<?= $block->getSubmitFormUrl(); ?>" class="borrow-form" method="POST" id="borrow-form-js">
+    <input type="hidden" name="form_key" value="<?= $block->getFormKey(); ?>">
+    <div class="fieldset borrow" data-hasrequired="* Required Fields">
+        <div class="fields">
+            <div class="field email required">
+                <label class="label" for="borrow_home_email"><span>E-mail</span></label>
+                <div class="control">
+                    <input name="BorrowHome[customer][email]"
+                           id="borrow_home_email"
+                           autocomplete="off"
+                           type="email"
+                           class="input-text" title="Email"
+                           data-validate="{required:true, 'validate-email':true}" aria-required="true"
+                           required="true" :value="customer.customer.email">
+                </div>
+            </div>
+
+            <div class="field name required">
+                <label class="label" for="borrow_home_firstname"><span>First name</span></label>
+                <div class="control">
+                    <input name="BorrowHome[customer][firstname]"
+                           autocomplete="off"
+                           id="borrow_home_firstname"
+                           type="text" class="input-text"
+                           title="First name"
+                           data-validate="{required:true}" aria-required="true"
+                           required="true" :value="customer.customer.firstname">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="fields">
+
+            <div class="field last-name required">
+                <label class="label" for="borrow_home_lastname"><span>Last name</span></label>
+                <div class="control">
+                    <input name="BorrowHome[customer][lastname]"
+                           autocomplete="off"
+                           id="borrow_home_lastname"
+                           type="text"
+                           class="input-text"
+                           title="Last name"
+                           data-validate="{required:true}" aria-required="true"
+                           required="true"  :value="customer.customer.lastname">
+                </div>
+            </div>
+
+            <div class="field address required">
+                <label class="label" for="borrow_home_street"><span>Address</span></label>
+                <div class="control">
+                    <input name="BorrowHome[shipping_address][street]"
+                           autocomplete="off"
+                           id="borrow_home_street"
+                           type="text"
+                           class="input-text"
+                           title="Address"
+                           data-validate="{required:true}" aria-required="true"
+                           required="true" :value="customer.address ? customer.address.street: ''">
+                </div>
+            </div>
+        </div>
+
+        <div class="fields">
+            <div class="field post required">
+                <label class="label" for="borrow_home_postcode"><span>Post</span></label>
+                <div class="control">
+                    <input name="BorrowHome[shipping_address][postcode]"
+                           autocomplete="off"
+                           id="borrow_home_postcode"
+                           type="text" class="input-text"
+                           title="Post"
+                           data-validate="{required:true}" aria-required="true"
+                           required="true" :value="customer.address ? customer.address.postcode: ''">
+                </div>
+            </div>
+            <div class="field city required">
+                <label class="label" for="borrow_home_city"><span>City</span></label>
+                <div class="control">
+                    <input name="BorrowHome[shipping_address][city]"
+                           autocomplete="off"
+                           id="borrow_home_city"
+                           type="text"
+                           class="input-text"
+                           title="City"
+                           data-validate="{required:true}" aria-required="true"
+                           required="true"  :value="customer.address ? customer.address.city: ''">
+                </div>
+            </div>
+            <div class="field country_id required">
+                <label class="label" for="borrow_home_country_id"><span>Country</span></label>
+                <div class="control">
+                    <select name="BorrowHome[shipping_address][country_id]"
+                            id="borrow_home_country_id"
+                            data-validate="{required:true}" aria-required="true"
+                            required="true" :value="customer.address ? customer.address.country_id : country_select">
+                        <?php foreach ($block->getCountriesList() as $code => $country) : ?>
+                            <?php
+                            $selected = $code === $block->getDefaultCountryCode() ? 'selected="selected"' : '';
+                            ?>
+                            <option <?= $selected; ?> value="<?= $code; ?>"><?= $country; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="fields">
+            <?php if($block->isNeedRegion()) :?>
+            <div class="field region">
+                <label class="label" for="borrow_home_region"><span>Region</span></label>
+                <div class="control">
+                    <input name="BorrowHome[shipping_address][region]"
+                           autocomplete="off"
+                           id="borrow_home_region"
+                           type="text"
+                           class="input-text"
+                           title="Region"
+                           :value="customer.address ? customer.address.region: ''" >
+                </div>
+            </div>
+            <?php endif;?>
+            <div class="field telephone required">
+                <label class="label" for="borrow_home_telephone"><span>Phone</span></label>
+                <div class="control">
+                    <input name="BorrowHome[shipping_address][telephone]"
+                           autocomplete="off"
+                           id="borrow_home_telephone"
+                           type="text"
+                           class="input-text"
+                           title="Phone"
+                           aria-required="true"
+                           required="true" :value="customer.address ? customer.address.telephone : ''">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action primary brown borrow-action" name="send"><span>Complete home try</span>
+            </button>
+        </div>
+    </div>
+</form>
+<?php $result = $block->getCustomerDataJsonConfig();?>
+<script type="text/x-magento-init">
+    {
+        "#borrow-form-js": {
+            "borrow": <?= $block->getCustomerDataJsonConfig(); ?>,
+            "jcf-select": {}
+        }
+    }
+</script>

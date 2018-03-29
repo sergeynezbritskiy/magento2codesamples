@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <head>
+        <title>My Discounts</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magecom\ReviewDiscount\Block\Customer\Discounts" name="customer_discounts" template="customer/discounts.phtml">
+                <block class="Magecom\ReviewDiscount\Block\Customer\Discounts\Item" name="coupon" template="customer/discounts/item.phtml"/>
+            </block>
+            <block class="Magento\Customer\Block\Account\Dashboard" name="customer.account.link.back" template="account/link/back.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

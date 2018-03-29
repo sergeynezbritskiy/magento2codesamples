@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Theme\Block\Html\Title">
+        <plugin name="suppressTitleForLandingPages" type="Magecom\LandingPage\Plugin\SuppressTitlePlugin" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="Magento\Theme\Block\Html\Breadcrumbs">
+        <plugin name="suppressBreadcrumbsForLandingPages" type="Magecom\LandingPage\Plugin\SuppressBreadcrumbsPlugin" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="Aheadworks\Layerednav\Model\Url\ConverterPool">
+        <arguments>
+            <argument name="converters" xsi:type="array">
+                <item name="default" xsi:type="array">
+                    <item name="value_instead_of_id" xsi:type="string">Aheadworks\Layerednav\Model\Url\Converter\DefaultConverter\ToValueInsteadOfId</item>
+                    <item name="value_as_subcategory" xsi:type="string">Aheadworks\Layerednav\Model\Url\Converter\DefaultConverter\ToValueAsSubcategory</item>
+                </item>
+                <item name="value_instead_of_id" xsi:type="array">
+                    <item name="default" xsi:type="string">Aheadworks\Layerednav\Model\Url\Converter\ValueInsteadOfId\ToDefault</item>
+                    <item name="value_as_subcategory" xsi:type="string">Aheadworks\Layerednav\Model\Url\Converter\ValueInsteadOfId\ToValueAsSubcategory</item>
+                </item>
+                <item name="value_as_subcategory" xsi:type="array">
+                    <item name="default" xsi:type="string">Aheadworks\Layerednav\Model\Url\Converter\ValueAsSubcategory\ToDefault</item>
+                    <item name="value_instead_of_id" xsi:type="string">Aheadworks\Layerednav\Model\Url\Converter\ValueAsSubcategory\ToValueInsteadOfId</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

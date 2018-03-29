@@ -1,0 +1,15 @@
+<?php
+/**
+ * @var \Magecom\ReviewDiscount\Block\Customer\Discounts\Item $block
+ */
+$item = $block->getCustomerCoupon();
+?>
+<div>
+    <h2><?= $item->getCouponCode(); ?></h2>
+    <strong>
+        <?= $item->getDiscountAmount(); ?>
+    </strong>
+    <span>
+        <?= $item->isActive() ? 'ACTIVE' : 'USED'; ?>
+    </span>
+</div>

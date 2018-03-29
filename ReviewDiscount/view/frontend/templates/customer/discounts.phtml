@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @var \Magecom\ReviewDiscount\Block\Customer\Discounts $block
+ */
+$customerCoupons = $block->getCustomerCoupons();
+?>
+
+<?php if ($customerCoupons->count() > 0): ?>
+    <div id="customer-discounts" class="customer-discounts">
+        <ul>
+            <?php /** @var \Magecom\ReviewDiscount\Model\CustomerCoupon $customerCoupon */ ?>
+            <?php foreach ($customerCoupons as $customerCoupon) : ?>
+                <li>
+                    <?= $block->getCouponHtml($customerCoupon); ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php else: ?>
+    <div class="message info empty">
+        <span><?= __('You do not have any prescriptions yet.'); ?></span>
+    </div>
+
+<?php endif; ?>

@@ -1,0 +1,14 @@
+<?php
+
+/** @var \Magecom\BorrowHome\Block\Catalog\Product\View $block */
+
+$buttonTryTitle = __('Borrow home');
+?>
+
+<?php if ($block->borrowHomeAvailable()): ?>
+    <button action="<?= $block->getBorrowHomeUrl(); ?>" type="submit" title="<?= $buttonTryTitle; ?>" class="action primary try black"
+       id="product-try-button" data-mage-init='{"borrow":{}}'>
+        <span><?= $buttonTryTitle; ?></span>
+        <em class="mobile"><?= __('try'); ?></em>
+    </button>
+<?php endif; ?>

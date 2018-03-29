@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="cms_page_save_before">
+        <observer name="parse_category_url" instance="\Magecom\LandingPage\Observer\ParseCategoryUrlObserver"/>
+        <observer name="normalize_category_id" instance="\Magecom\LandingPage\Observer\NormalizeCategoryIdObserver"/>
+    </event>
+    <event name="cms_page_save_after">
+        <observer name="parse_category_url" instance="\Magecom\LandingPage\Observer\ParseCategoryUrlObserver"/>
+        <!-- OVERRIDE OBSERVER Magento\CmsUrlRewrite\Observer\ProcessUrlRewriteSavingObserver -->
+        <observer name="process_url_rewrite_saving" instance="Magecom\LandingPage\Observer\ProcessUrlRewriteSavingObserver"/>
+    </event>
+</config>
